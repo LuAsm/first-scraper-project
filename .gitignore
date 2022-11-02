@@ -1,0 +1,71 @@
+.project-state.json
+
+__pycache__/
+*.py[cod]
+
+*.tar.gz
+
+dist/
+src/*.egg-info/
+
+.pytest_cache/
+*.egg-info/
+*.egg
+
+.mypy_cache/
+
+# Distribution / packaging
+.Python
+env/
+.venv/
+build/
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# DotEnv configuration
+.env
+
+# Pycharm
+.idea
+
+# VS Code
+.vscode/
+
+# Jupyter NB Checkpoints
+.ipynb_checkpoints/
+.git/
+.DS_Store
+
+# Pytest artifacts
+.pytest_cache/*
+
+# Conda environment created by project file
+condaenv/**
+
+# Terraform artifacts
+.cache
+.terraform
+*.tfstate
+*.tfstate.*
+tf-credentials-*.json
+
+!.gitkeep
+
+#Other
+lightning_logs/
+local_run_data/*
+.project-build-context/
+
+#hypothesis
+.hypothesis/
+
+
+just_for_me/
