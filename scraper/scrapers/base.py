@@ -2,13 +2,15 @@ from scraper.models.equipment import EquipmentLink, Equipment
 from typing import List, Optional
 import math
 from abc import ABC, abstractmethod
-from decimal import DivisionByZero
+#from decimal import DivisionByZero
 import requests
 from tqdm import tqdm
 from bs4 import BeautifulSoup
+import pandas as pd
+from csv import writer
 
 class BaseScraper(ABC):
-    __item_per_page__: int = 0
+    __items_per_page__: int = 0
     __domain__: str = ""
 
 
@@ -33,15 +35,28 @@ class BaseScraper(ABC):
 
     def scrape(self, equipments_count: int, keyword: str ) -> List[Equipment]:
         try:
-            pages_count = math.ceil(equipments_count / self.__item_per_page__)
+            pages_count = math.ceil(equipments_count / self.__items_per_page__)
             
         except ZeroDivisionError:
             raise AttributeError("Equipments per page is zero")
-
-        equipments_links = self._retrieve_item_list(pages_count, keyword)
+        
+        equipment_links = self._retrieve_item_list(pages_count, keyword)
+        tmp = pd.DataFrame()
+        tmp.to_csv('ebay_tmpe.csv', mode="w",header=True)
         scraped_equipments: List[Optional[Equipment]] = []
-        for equipment_link in tqdm(equipments_links):
+        for equipment_link in tqdm(equipment_links):
             scraped_equipment = self._retrieve_equipment_info(equipment_link)
             if scraped_equipment:
+                tmp = pd.DataFrame.from_dict(scraped_equipment, orient='index').T
+                print(tmp)
+                
+                tmp.to_csv('ebay_tmpe.csv', mode='a', index=False, header=False)
                 scraped_equipments.append(scraped_equipment)
+                
+            else:
+                print(scraped_equipment)
+            
+         
         return scraped_equipments
+
+    

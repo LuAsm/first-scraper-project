@@ -14,6 +14,13 @@ src/*.egg-info/
 
 .mypy_cache/
 
+.vscode/
+.idea/
+
+Scraper-data/data/*
+!Scraper-data/.gitkeep
+
+
 # Distribution / packaging
 .Python
 env/
